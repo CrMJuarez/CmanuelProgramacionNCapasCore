@@ -1,0 +1,93 @@
+﻿@model ML.Dependiente
+@{
+    ViewBag.Title = "GetAllDependiente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <h2>Dependientes</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione un empleado para editar el dependiente o + para agregar uno</h5>
+            <hr />
+        </div>
+    </div>
+</div>
+
+ <div class="row">
+        <div class="form-group" style="display: none;">
+            @Html.LabelFor(model => model.IdEmpleado, new { @class = "control-label col-md-2 hidden" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.IdEmpleado, new { @class = "form-control hidden" })
+               
+            </div>
+        </div>
+        <div class="form-group">
+                        @Html.LabelFor(model => model.empleado.Nombre, new { @class = "control-label col-md-2" })
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(model => model.empleado.Nombre, new { @class = "form-control" })
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.empleado.ApellidoPaterno, new { @class = "control-label col-md-2" })
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(model =>  model.empleado.ApellidoPaterno, new { @class = "form-control" })
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.empleado.ApellidoMaterno, new { @class = "control-label col-md-2" })
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(model =>  model.empleado.ApellidoMaterno, new { @class = "form-control" })
+                            
+                        </div>
+                    </div>
+
+@if (Model.Dependientes == null)
+{
+    <div class="p-3 mb-2 bg-danger text-white">Aun no hay dependientes registrados</div>
+}
+else
+{
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <td class="text-center">Ver Dependientes</td>
+
+                <td style="display :none;">IdDependiente</td>
+                <td class="text-center">Nombre</td>
+                <td class="text-center">FechaNacimiento</td>
+                <td class="text-center">EstadoCivil</td>
+                <td class="text-center">Genero</td>
+                <td class="text-center">Telefono</td>
+                <td class="text-center">RFC</td>
+                <td style="display :none;">IdEmpleado</td>
+                <td style="display :none;">IdDependienteTipo</td>
+                <td class="text-center">NombreDependiente</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ML.Dependiente dependiente in Model.Dependientes)
+            {
+                <tr>
+                    <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("GetAllDependiente", "Dependiente", new { IdDependiente = dependiente.IdDependiente })"></a></td>
+
+                    <td style="display :none;">@dependiente.IdDependiente</td>
+                    <td class="text-center">@dependiente.Nombre @dependiente.ApeliidoPaterno @dependiente.AppellidoMaterno</td>
+                    <td class="text-center">@dependiente.FechaNacimiento</td>
+                    <td class="text-center">@dependiente.EstadoCivil</td>
+                    <td class="text-center">@dependiente.Genero</td>
+                    <td class="text-center">@dependiente.Telefono</td>
+                    <td class="text-center">@dependiente.Rfc</td>
+                    <td style="display :none;">@dependiente.empleado.IdEmpleado</td>
+                    <td style="display :none;">@dependiente.dependienteTipo.IdDependienteTipo</td>
+                    <td class="text-center">@dependiente.dependienteTipo.Nombre</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+</div>

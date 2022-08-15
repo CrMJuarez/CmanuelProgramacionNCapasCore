@@ -1,0 +1,158 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <h2>Usuario</h2>
+    </div>
+    <div class="container">
+        <div class="align-content-center">
+            @using (Html.BeginForm("GetAll", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @id = "txtNombre", @autocomplete = "off", @placeholder = "Nombre" })
+                    </div>
+
+
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @id = "txtApellidoPaterno", @autocomplete = "off", @placeholder = "ApellidoPaterno" })
+
+                    </div>
+
+
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @id = "txtApellidoMaterno", @autocomplete = "off", @placeholder = "ApellidoMaterno" })
+
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <input type="submit" value="Buscar" class="btn btn-info" />
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione un usuario para editarla o el boton + para agregar un usuario...</h5>
+            <hr />
+        </div>
+    </div>
+    <div style="float:right;">
+        @Html.ActionLink("+", "Form", "Usuario", htmlAttributes: new { @class = "btn btn-success" })
+    </div>
+
+    @if (Model.Usuarios == null)
+    {
+        <div class="p-3 mb-2 bg-danger text-white">Aun no hay usuarios registrados</div>
+    }
+    else
+    {
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <td class="text-center">Editar</td>
+
+                    <td style="display :none;">IdUsuario</td>
+                    <td class="text-center">Nombre</td>
+                    <td class="text-center">Sexo</td>
+                    <td class="text-center">Curp</td>
+                    <td class="text-center">UserName</td>
+                    <td class="text-center">Email</td>
+                    <td class="text-center">Telefono</td>
+                    <td class="text-center">Celular</td>
+                    <td class="text-center">FechaNacimiento</td>
+                    <td class="text-center">Rol</td>
+                    <td class="text-center">Imagen</td>
+                    <td class="text-center">Estatus</td>
+                    <td class="text-center">Direccion</td>
+
+                    <td class="text-center">Eliminar</td>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ML.Usuario usuario in Model.Usuarios)
+                {
+                    <tr>
+                        <td class="text-center"><a class="btn-warning bi bi-pencil-square" href="@Url.Action("Form", "Usuario", new { IdUsuario = usuario.IdUsuario })"></a></td>
+
+                        <td style="display :none;">@usuario.IdUsuario</td>
+                        <td class="text-center">@usuario.Nombre @usuario.ApellidoPaterno @usuario.ApellidoMaterno</td>
+                        <td class="text-center">@usuario.Sexo</td>
+                        <td class="text-center">@usuario.CURP</td>
+                        <td class="text-center">@usuario.UserName</td>
+                        <td class="text-center">@usuario.Email</td>
+                        <td class="text-center">@usuario.Telefono</td>
+                        <td class="text-center">@usuario.Celular</td>
+                        <td class="text-center">@usuario.FechaNacimiento</td>
+                        @*se tiene que llamar el modelo*@
+                        <td style="display :none;">@usuario.Rol.IdRol</td>
+                        <td class="text-center">@usuario.Rol.Nombre</td>
+
+                        <td>
+                            @if (usuario.Imagen != null)
+                            {
+
+                                <img class="card-Img" src="data:image/*;base64,@usuario.Imagen" style="width:150px ; height:165px" />
+
+                            }
+                            else
+                            {
+                                <img class="card-Img" src="~/Imagenes/SinRostro.jpg" style="width:150px ; height:150px" />
+                            }
+
+                        </td>
+                        <td class="text-center">
+                            @if (usuario.Estatus)
+                            {
+                                <a href=@Url.Action("UpdateEstatus","Usuario",new {IdUsuario=@usuario.IdUsuario})>
+                                    <img src="~/Imagenes/On.jpg" style="width:150px ; height:70px" />
+                                </a>
+                            }
+                            else
+                            {
+
+                                <a href=@Url.Action("UpdateEstatus","Usuario",new {IdUsuario=@usuario.IdUsuario})>
+                                    <img src="~/Imagenes/Off.jpg" style="width:150px ; height:70px" />
+                                </a>
+                            }
+
+                        </td>
+
+
+
+
+
+
+
+
+
+                        <td style="display :none;">@usuario.Direccion.IdDireccion</td>
+                        <td style="display :none;">@usuario.Direccion.Colonia.IdColonia</td>
+                        <td style="display :none;">@usuario.Direccion.Colonia.Municipio.IdMunicipio</td>
+                        <td style="display :none;">@usuario.Direccion.Colonia.Municipio.Estado.IdEstado</td>
+                        <td style="display :none;">@usuario.Direccion.Colonia.Municipio.Estado.Pais.IdPais</td>
+                        <td class="text-center">@usuario.Direccion.Calle @usuario.Direccion.NumeroInterior @usuario.Direccion.NumeroExterior @usuario.Direccion.Colonia.Nombre @usuario.Direccion.Colonia.CodigoPostal @usuario.Direccion.Colonia.Municipio.Nombre @usuario.Direccion.Colonia.Municipio.Estado.Nombre @usuario.Direccion.Colonia.Municipio.Estado.Pais.Nombre</td>
+
+
+                        @* no habias hecho el cambio... Recuerda que Rol es otro modelo como tal ok entonces
+                            ya con los cambios de ahorita ya quedo ya solo hago el drop? *@
+
+                        <td class="text-center"><a class="btn-danger bi bi-trash3-fill" href="@Url.Action("Delete", "Usuario", new { IdUsuario = usuario.IdUsuario})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

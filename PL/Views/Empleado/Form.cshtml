@@ -1,0 +1,294 @@
+﻿@model ML.Empleado
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>@ViewBag.Titulo</h3>
+            <h5>Ingrese los datos</h5>
+        </div>
+    </div>
+
+</div>
+@using (Html.BeginForm("Form", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="form-group" style="display: none;">
+            @Html.LabelFor(model => model.IdEmpleado, new { @class = "control-label col-md-2 hidden" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.IdEmpleado, new { @class = "form-control hidden" })
+                @Html.ValidationMessageFor(model => model.IdEmpleado)
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.NumeroEmpleado)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @Html.TextBoxFor(model => model.NumeroEmpleado, new { @class = "form-control", @id = "txtNumeroEmpleado", @placeholder="Ejemp:0123", autocomplete = "off", @onkeypress = "return SoloNumeros(event,'lblErrorNumeroEmpleado')"})
+                @Html.ValidationMessageFor(model => model.NumeroEmpleado, null, new { @class = "text-danger"})
+            </div>
+            @Html.Label("", null, new {@id = "lblNumeroEmpleado"})
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.Rfc)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @Html.TextBoxFor(model => model.Rfc, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Rfc)
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.Nombre)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @id = "txtNombre", @placeholder="Ejemp:abcde", autocomplete = "off", @onkeypress = "return SoloLetras(event,'lblNombre')"})
+                @Html.ValidationMessageFor(model => model.Nombre, null, new { @class = "text-danger"})
+            </div>
+            @Html.Label("", null, new {@id = "lblNombre"})
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.ApellidoPaterno)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ApellidoPaterno)
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.ApellidoMaterno)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ApellidoMaterno)
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.Email)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @id = "txtEmail", @placeholder="Ejemp:ejemplo@ejemp.com", autocomplete = "off", @onkeyup = "return VerificarEmail(event,'lblErrorEmail')"})
+                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger"})
+            </div>
+            @Html.Label("", null, new {@id = "lblEmail"})
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.Telefono)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Telefono)
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.FechaNacimiento)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @Html.TextBoxFor(model => model.FechaNacimiento,new { @class = "form-control", @id = "txtFechaNacimiento" })
+                @Html.ValidationMessageFor(model => model.FechaNacimiento)
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.Nss)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @Html.TextBoxFor(model => model.Nss, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nss)
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.FechaIngreso)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @Html.TextBoxFor(model => model.FechaIngreso, new { @class = "form-control", @id = "txtFechaIngreso" })
+                @Html.ValidationMessageFor(model => model.FechaIngreso)
+            </div>
+        </div>
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.Empresa.NombreEmpresa)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @*   @Html.TextBoxFor(model => model.Empresa.Nombre, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Empresa.Nombre)*@
+                @Html.DropDownListFor(model => model.Empresa.IdEmpresa, new SelectList(Model.Empresa.Empresas, "IdEmpresa", "Nombre"), "Selecciona una opcion", new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model => model.Poliza.NombrePoliza)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person" style="color: midnightblue"></i></span>
+                @* @Html.TextBoxFor(model => model.Poliza.Nombre, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Poliza.Nombre)*@
+                @Html.DropDownListFor(model => model.Poliza.IdPoliza, new SelectList(Model.Poliza.Polizas, "IdPoliza", "Nombre"), "Selecciona una opcion", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Foto)
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-card-image"></i></span>
+                <input id="IFImage" type='file' class="form-control" name="IFImage" onchange="validateFile(this), readURL(this);  " />
+            </div>
+
+            @if (Model.Foto != null)
+            {
+
+                <img id="Img" src="data:image/*;base64,@Model.Foto" style="width:250px ; height:250px" />
+
+            }
+            else
+            {
+                <img id="Img" src="~/Imagenes/SinRostro.jpg" style="width:250px ; height:250px" />
+            }
+            @Html.HiddenFor(model=> model.Foto)
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+                @Html.ActionLink("Regresar", "GetAll", "Empleado", htmlAttributes: new { @class = "btn btn-danger" })
+            </div>
+        </div>
+
+    </div>
+}
+@section Scripts
+    {
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript">
+
+      function validateFile()
+                      {
+                          var allowedExtension = ['jpeg', 'jpg', 'png'];
+                          var fileExtension = document.getElementById('IFImage').value.split('.').pop().toLowerCase();
+                          var isValidFile = false;
+
+                              for(var index in allowedExtension) {
+
+                                  if(fileExtension === allowedExtension[index]) {
+                                      isValidFile = true;
+                                      break;
+                                  }
+                              }
+
+                              if(!isValidFile) {
+                                  alert('Las extensiones permitidas son : *.' + allowedExtension.join(', *.'));
+                                  document.getElementById('IFImage').value = ""
+                              }
+
+                              return isValidFile;
+                      }
+                      function readURL(input) {
+                      if (input.files && input.files[0]) {
+                          var reader = new FileReader();
+
+                          reader.onload = function (e) {
+                              $('#Img')
+                                .attr('src', e.target.result);
+
+                          };
+
+                          reader.readAsDataURL(input.files[0]);
+                      }
+                  }
+
+
+                   $(function () {
+            $("#txtFechaNacimiento").datepicker({
+                dateFormat: 'dd-mm-yy',
+                                        changeMonth: true,
+                                        changeYear: true
+            });
+      } );
+
+      $(function () {
+            $("#txtFechaIngreso").datepicker({
+                dateFormat: 'dd-mm-yy',
+                                        changeMonth: true,
+                                        changeYear: true
+            });
+      } );
+
+
+          function SoloNumeros(e,controlId) 
+          {
+              var regex = /^[0-9]/;
+              var caracter = e.key;
+          if (regex.test(caracter)) {
+              $("#" + controlId).css({ "color": "green" });
+              return true;
+          }
+          else {
+              $("#" + controlId).text("Solo se aceptan numeros");
+              $("#" + controlId).css({ "color": "red" });
+              return false;
+
+          }
+
+    }
+             function SoloLetras(e,controlId)
+             {
+                  var regex = /^[a-zA-Z]+$/;
+                  var letra = e.key;
+
+                  if(regex.test(letra)){
+
+                      $('#' + controlId).css({ "color": "green" });
+                      return true;
+                  }
+                  else{
+                      $('#' + controlId).text("Solo se aceptan letras");
+                      $('#' + controlId).css({ "color": "red" });
+                      return false;
+                  }
+              }
+
+              function VerificarEmail()
+              {
+              var email = document.getElementById("txtEmail").value;
+              var lblError = document.getElementById("lblErrorEmail");
+              lblError.innerHTML= "";
+              var expr = /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/;
+              if(!expr.test(email))
+              {
+              lblError.innerHTML = "El correo no es valido";
+              }
+              }
+
+
+</script>
+    }

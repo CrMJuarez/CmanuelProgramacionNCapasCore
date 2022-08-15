@@ -1,0 +1,52 @@
+﻿@model ML.Empleado
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <h2>Empleado</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione un empleado para ver o sus dependientes</h5>
+            <hr />
+        </div>
+    </div>
+</div>
+
+
+@if (Model.Empleados == null)
+{
+    <div class="p-3 mb-2 bg-danger text-white">Aun no hay usuarios registrados</div>
+}
+else
+{
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <td class="text-center">Ver Dependientes</td>
+
+                <td style="display :none;">IdEmpleado</td>
+                <td class="text-center">Nombre</td>
+                <td class="text-center">NumeroEmpleado</td>
+                <td class="text-center">RFC</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ML.Empleado empleado in Model.Empleados)
+            {
+                <tr>
+                    <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("GetAllDependiente", "Dependiente", new { IdEmpleado = empleado.IdEmpleado})"></a></td>
+
+                    <td style="display :none;">@empleado.IdEmpleado</td>
+                    <td class="text-center">@empleado.Nombre @empleado.ApellidoPaterno @empleado.ApellidoMaterno</td>
+                    <td class="text-center">@empleado.NumeroEmpleado</td>
+                    <td class="text-center">@empleado.Rfc</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+</div>
